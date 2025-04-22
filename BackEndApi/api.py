@@ -18,7 +18,7 @@ from BackEndApi.schemas import UserSchema, CreateUserSchema, UpdateUserSchema, P
 api = NinjaExtraAPI(auth=[JWTAuth()], title="BackEnd API", version="1.0.0")
 
 
-@api.post('/register', tags=['auth'], response={201: UserSchema}, auth=None, permissions=[permissions.AllowAny])
+@api.post('/register', tags=['auth'], response={201: UserSchema}, auth=None)
 def register(request, payload: CreateUserSchema):
     """
     Register a new user.
