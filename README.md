@@ -97,6 +97,14 @@ This API uses JWT tokens for authentication (via `dj-ninja-auth`).
 - `PATCH /api/admin/posts/{id}` - Update a post by ID.
 - `DELETE /api/admin/posts/{id}` - Delete a post by ID.
 
+### Docker
+#### Build the image
+docker build -t backend:latest .
+
+#### Run the container
+docker run -d -p 8000:8000 --env-file .env backend:latest
+
+
 ### Contributing
 
 Feel free to open issues or submit pull requests.
