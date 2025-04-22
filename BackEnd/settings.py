@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'BackEndApi',
     'ninja_extra',
     'dj_ninja_auth',
+    'dj_ninja_auth.jwt',
     'corsheaders'
 ]
 

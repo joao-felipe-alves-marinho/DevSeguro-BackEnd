@@ -1,7 +1,6 @@
 from http import HTTPStatus
 from typing import List
 
-from dj_ninja_auth.controller import NinjaAuthDefaultController
 from ninja_extra import (
     NinjaExtraAPI,
     api_controller,
@@ -9,12 +8,15 @@ from ninja_extra import (
     permissions
 )
 
+from dj_ninja_auth.jwt.authentication import JWTAuth
+from dj_ninja_auth.jwt.controller import NinjaAuthJWTController
+
 from BackEndApi.models import User, Post
 from BackEndApi.schemas import UserSchema, CreateUserSchema, UpdateUserSchema, PostSchema, CreatePostSchema, \
     UpdatePostSchema
 
-api = NinjaExtraAPI()
-api.register_controllers(NinjaAuthDefaultController)
+api = NinjaExtraAPI(auth=[JWTAuth()], title="BackEnd API", version="1.0.0")
+api.register_controllers(NinjaAuthJWTController)
 
 
 @api.post('/register', tags=['auth'], response={201: UserSchema})
