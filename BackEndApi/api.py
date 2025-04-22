@@ -89,6 +89,17 @@ class UserController(ControllerBase):
         post = Post.objects.create(user=user, **payload.dict())
         return post
 
+    @route.get('/posts/{post_id}', response=PostSchema)
+    def get_post(self, post_id: int):
+        """
+        Get a post of the current user.
+        :param post_id: ID of the post to retrieve
+        :return: PostSchema
+        """
+        user = self.context.request.user
+        post = Post.objects.get(id=post_id, user=user)
+        return post
+
     @route.patch('/posts/{post_id}', response=PostSchema)
     def update_post(self, post_id: int, payload: UpdatePostSchema):
         """
@@ -131,6 +142,16 @@ class PostController(ControllerBase):
         """
         posts = Post.objects.filter(is_published=True).all()
         return posts
+    
+    @route.get('/{post_id}', response=PostSchema)
+    def get_post(self, post_id: int):
+        """
+        Get a post by ID.
+        :param post_id: ID of the post to retrieve
+        :return: PostSchema
+        """
+        post = Post.objects.get(id=post_id, is_published=True)
+        return post
 
 
 @api_controller('/admin', tags=['admin'], permissions=[permissions.IsAdminUser])
