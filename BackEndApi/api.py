@@ -18,7 +18,7 @@ from BackEndApi.schemas import UserSchema, CreateUserSchema, UpdateUserSchema, P
 api = NinjaExtraAPI(auth=[JWTAuth()], title="BackEnd API", version="1.0.0")
 
 
-@api.post('/register', tags=['auth'], response={201: UserSchema})
+@api.post('/register', tags=['auth'], response={201: UserSchema}, auth=None, permissions=[permissions.AllowAny])
 def register(request, payload: CreateUserSchema):
     """
     Register a new user.
@@ -128,7 +128,7 @@ class UserController(ControllerBase):
         return HTTPStatus.NO_CONTENT
 
 
-@api_controller('/posts', tags=['posts'])
+@api_controller('/posts', tags=['posts'], auth=None, permissions=[permissions.AllowAny])
 class PostController(ControllerBase):
     """
     Controller for post-related operations.
