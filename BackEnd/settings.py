@@ -45,9 +45,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -126,7 +126,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'BackEndApi.User'
 AUTH_PASSWORD_RESET_URL = "http://localhost:8000/reset/"
-CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # or whatever port your frontend runs on
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
 
 AUTH_JWT_ACCESS_TOKEN_LIFETIME = timedelta(
     minutes=int(os.getenv('AUTH_JWT_ACCESS_TOKEN_LIFETIME', '5'))
