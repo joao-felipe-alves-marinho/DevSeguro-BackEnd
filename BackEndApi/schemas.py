@@ -124,4 +124,4 @@ class PostSchema(ModelSchema):
 
     class Config:
         model = Post
-        include = ['title', 'content', 'is_published', 'created_at']
+        include = ['id', 'title', 'content', 'is_published', 'created_at']
