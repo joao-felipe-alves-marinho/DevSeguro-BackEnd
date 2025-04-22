@@ -16,7 +16,6 @@ from BackEndApi.schemas import UserSchema, CreateUserSchema, UpdateUserSchema, P
     UpdatePostSchema
 
 api = NinjaExtraAPI(auth=[JWTAuth()], title="BackEnd API", version="1.0.0")
-api.register_controllers(NinjaAuthJWTController)
 
 
 @api.post('/register', tags=['auth'], response={201: UserSchema})
@@ -227,3 +226,11 @@ class AdminController(ControllerBase):
         post = Post.objects.get(id=post_id)
         post.delete()
         return HTTPStatus.NO_CONTENT
+
+
+api.register_controllers(
+    NinjaAuthJWTController,
+    UserController,
+    PostController,
+    AdminController
+)
