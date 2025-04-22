@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-m)4z#kur*t39dz2)lim+)8=ou(kxhlg6mu)lkfx5!(5kxkjj%a'
+SECRET_KEY = os.getenv('SECRET_KEY', 'change_this_to_a_random_secret_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(int(os.getenv('DEBUG', '1')))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost').split(',')
 
 # Application definition
 
@@ -125,13 +125,10 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'BackEndApi.User'
-AUTH_PASSWORD_RESET_URL = "http://localhost:8000/reset/"
+AUTH_PASSWORD_RESET_URL = os.getenv('AUTH_PASSWORD_RESET_URL', 'http://localhost:8000/reset-password')
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # or whatever port your frontend runs on
-]
-
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:5173').split(',')
+CORS_ALLOW_CREDENTIALS = bool(int(os.getenv('CORS_ALLOW_CREDENTIALS', '1')))
 
 
 AUTH_JWT_ACCESS_TOKEN_LIFETIME = timedelta(
